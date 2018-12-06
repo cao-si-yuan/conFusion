@@ -7,8 +7,10 @@ import Menu from './components/MenuComponent';
 import { Navbar, NavbarBrand } from 'reactstrap';
 
 class App extends Component {
+
     constructor(props) {
         super(props);
+
         this.state = {
             dishes: DISHES
         };
