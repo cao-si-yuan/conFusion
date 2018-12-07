@@ -7,11 +7,6 @@ class Dishdetail extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            //dish: null
-            // comments: this.props.selectedDish.comments
-        }
     }
 
     renderDish(dish) {
@@ -35,30 +30,21 @@ class Dishdetail extends Component {
 
     renderComments(dish) {
         if (dish != null) {
-            var comments = dish.comments
+            const comments = dish.comments
+            const listItems = comments.map((item) =>
+                <li key={item.id}>
+                    {item.comment}
+                    <br></br><br></br>
+                    {'-- ' + item.author + ','}
+                    {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(item.date)))}
+                    <br></br><br></br>
+                </li>
+            )
             return (
                 <div>
                     <h4>Comments</h4>
                     <ul class="list-unstyled">
-                        <li>{comments[0].comment}</li>
-                        <br></br>
-                        <li>-- {comments[0].author}</li>
-                        <br></br>
-                        <li>{comments[1].comment}</li>
-                        <br></br>
-                        <li>-- {comments[1].author}</li>
-                        <br></br>
-                        <li>{comments[2].comment}</li>
-                        <br></br>
-                        <li>-- {comments[2].author}</li>
-                        <br></br>
-                        <li>{comments[3].comment}</li>
-                        <br></br>
-                        <li>-- {comments[3].author}</li>
-                        <br></br>
-                        <li>{comments[4].comment}</li>
-                        <br></br>
-                        <li>-- {comments[4].author}</li>
+                        {listItems}
                     </ul>
                 </div>
             )
@@ -71,14 +57,16 @@ class Dishdetail extends Component {
 
     render() {
         return (
+            <div className="container">
                 <div className="row">
                     <div className="col-12 col-md-5 m-1">
-                        {this.renderDish(this.props.selectedDish)}
+                        {this.renderDish(this.props.dish)}
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        {this.renderComments(this.props.selectedDish)}
+                        {this.renderComments(this.props.dish)}
                     </div>
                 </div>
+            </div>
         );
     }
 }
